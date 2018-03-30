@@ -39,10 +39,7 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEmployee(int id, Employee employee)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+           
 
             if (id != employee.EmployeeID)
             {
@@ -74,10 +71,7 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Employee))]
         public IHttpActionResult PostEmployee(Employee employee)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+           
 
             db.Employees.Add(employee);
             db.SaveChanges();
