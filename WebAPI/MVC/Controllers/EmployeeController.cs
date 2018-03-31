@@ -20,5 +20,10 @@ namespace MVC.Controllers
             
             return View(empList);
         }
+
+        public ActionResult AddorEdit()
+        {
+            return null;
+        }
     }
 }
