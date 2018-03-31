@@ -1,4 +1,5 @@
 ﻿using MVC.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace MVC.Controllers
             IEnumerable<mvcEmployeeModel> empList;
             HttpResponseMessage response = GlobalVariables.webApiClient.GetAsync("Employee").Result;
             empList = response.Content.ReadAsAsync<IEnumerable<mvcEmployeeModel>>().Result;
+            
             return View(empList);
         }
     }
