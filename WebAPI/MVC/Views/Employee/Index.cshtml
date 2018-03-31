@@ -46,7 +46,8 @@
             @Html.DisplayFor(modelItem => item.Salary)
         </td>
         <td>
-            <a href="@Url.Action("AddorEdit", "Employee", new { id = item.EmployeeID})" class="btn btn-default"><i class="far far-pencil"></i></a>
+            <a href="@Url.Action("AddorEdit", "Employee", new { id = item.EmployeeID})" class="btn btn-default"><i class="far far-pencil">Edit</i></a>
+            <a onclick="Delete(@item.EmployeeID)" class="btn btn-default"><i class="far far-trash">Delete</i></a>
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
@@ -55,11 +56,17 @@
 </table>
 
 @section scripts{
-<section>
+<script>
     $(function(){
     var successMessage = '@TempData["SuccessMessage"]'
     if(successMessage != '')
     alertify.success(successMessage);
     });
-</section>
+
+    function Delete(id) {
+        alertify.confirm('Web API CRUD operations', 'Are you sure to delete this record?', function () {
+            window / location.href = '@Url.Action("Delete", "Employee")/' + id;
+        }, null);
+    }
+</script>
     }
