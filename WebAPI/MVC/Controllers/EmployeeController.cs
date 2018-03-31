@@ -26,9 +26,11 @@ namespace MVC.Controllers
             return View(new mvcEmployeeModel());
         }
         [HttpPost]
-        public ActionResult AddorEdit()
+        public ActionResult AddorEdit(mvcEmployeeModel emp)
         {
-            return View();
+            HttpResponseMessage response = GlobalVariables.webApiClient.PostAsJsonAsync("Employee", emp).Result;
+            TempData["SuccessMessage"] = "Saved Successfully";
+            return RedirectToAction("Index");
         }
     }
 }
