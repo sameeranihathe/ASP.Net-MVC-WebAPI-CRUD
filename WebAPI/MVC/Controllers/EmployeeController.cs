@@ -20,10 +20,15 @@ namespace MVC.Controllers
             
             return View(empList);
         }
-
+        [HttpGet]
+        public ActionResult AddorEdit(int id=0)
+        {
+            return View(new mvcEmployeeModel());
+        }
+        [HttpPost]
         public ActionResult AddorEdit()
         {
-            return null;
+            return View();
         }
     }
 }
