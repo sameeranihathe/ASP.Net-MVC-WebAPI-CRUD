@@ -23,14 +23,34 @@ namespace MVC.Controllers
         [HttpGet]
         public ActionResult AddorEdit(int id=0)
         {
-            return View(new mvcEmployeeModel());
+            if (id == 0)
+            {
+                return View(new mvcEmployeeModel());
+
+            }
+            else
+            {
+                HttpResponseMessage response = GlobalVariables.webApiClient.GetAsync("Employee/"+id.ToString()).Result;
+                return View(response.Content.ReadAsAsync<mvcEmployeeModel>().Result);
+            }
+
         }
         [HttpPost]
         public ActionResult AddorEdit(mvcEmployeeModel emp)
         {
-            HttpResponseMessage response = GlobalVariables.webApiClient.PostAsJsonAsync("Employee", emp).Result;
-            TempData["SuccessMessage"] = "Saved Successfully";
+            if (emp.EmployeeID ==0)
+            {
+                 HttpResponseMessage response = GlobalVariables.webApiClient.PostAsJsonAsync("Employee", emp).Result;
+                 TempData["SuccessMessage"] = "Saved Successfully";
+                 
+            }
+            else
+            {
+                HttpResponseMessage response = GlobalVariables.webApiClient.PutAsJsonAsync("Employee/"+emp.EmployeeID, emp).Result;
+                TempData["SuccessMessage"] = "Updated Successfully";
+            }
             return RedirectToAction("Index");
+
         }
     }
 }
